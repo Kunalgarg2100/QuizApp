@@ -5,7 +5,7 @@ class GenresController < ApplicationController
 
     end
 	def new
-		@genre = Genre.new(genre_params)
+		@genre = Genre.new
 	end
 
 	def create
@@ -44,7 +44,7 @@ class GenresController < ApplicationController
 
   	private
     	def genre_params
-      		params.require(:genre).permit(:content , subgenres_attributes: [:cont])
+      		params.require(:genre).permit(:content, subgenres_attributes: [:cont])
     	end
 
 
