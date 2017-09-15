@@ -10,7 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913163510) do
+ActiveRecord::Schema.define(version: 20170913213507) do
+
+  create_table "genres", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "ques"
+    t.string "optA"
+    t.string "optB"
+    t.string "optC"
+    t.string "optD"
+    t.string "correctopt"
+    t.integer "subgenre_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subgenre_id"], name: "index_questions_on_subgenre_id"
+  end
+
+  create_table "stats", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "question_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_stats_on_question_id"
+    t.index ["user_id"], name: "index_stats_on_user_id"
+  end
+
+  create_table "subgenres", force: :cascade do |t|
+    t.string "cont"
+    t.integer "genre_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_subgenres_on_genre_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

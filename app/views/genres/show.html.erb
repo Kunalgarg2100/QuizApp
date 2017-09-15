@@ -1,0 +1,7 @@
+<%= @genre.content %>
+
+<% for task in @genre.subgenres %>
+<%= link_to task.cont, task %>
+  	<%= link_to "delete", task, method: :delete, data: { confirm: "You sure?" } %>
+ <% end %>
+  	<%= link_to "Add new", new_subgenre_path(:genre => @genre.id) %>

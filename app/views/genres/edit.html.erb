@@ -1,0 +1,20 @@
+<% provide(:title, 'Edit Genre') %>
+<% provide(:button_text, 'Save changes') %>
+
+<h1>Edit Quiz</h1>
+<%= form_for @genre do |f| %>
+  <p>
+    Name: <%= f.text_field :content %>
+  </p>
+  <%= f.fields_for :subgenre do |subgenre_form| %>
+    <p>
+      Task:
+      <%= subgenre_form.text_field :cont %>
+      <%= subgenre_form.check_box :_destroy %>
+      <%= subgenre_form.label :_destroy, "Remove subgenre" %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.submit 'Update Project' %>
+  </p>
+<% end %>

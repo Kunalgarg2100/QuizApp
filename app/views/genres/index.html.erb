@@ -1,0 +1,14 @@
+<% provide(:title, 'All users') %>
+<h1>All Genres</h1>
+<ul class="users">
+<% for genre in @genres %>
+  <li>
+  <%= link_to genre.content, genre %> 
+  <%= link_to "delete", genre, method: :delete, data: { confirm: "You sure?" } %>
+  <% for task in genre.subgenres %>
+	<%= link_to task.cont, task %>
+  <% end %>
+  </li>
+<% end %>
+</ul>
+

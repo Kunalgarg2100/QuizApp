@@ -1,0 +1,10 @@
+<% provide(:title, 'Add Subgenre') %>
+<h1>Quiz Setup</h1>
+     <%= form_for @subgenre do |f| %>
+     <p>
+      Name : <%= f.text_field :cont %>
+     </p>
+    <p>
+      <%= f.submit 'Create Project' %>
+    </p>
+    <% end %>

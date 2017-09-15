@@ -1,0 +1,25 @@
+<% provide(:title, 'Add Question') %>
+<h1>Quiz Setup</h1>
+     <%= form_for @question do |f| %>
+     <p>
+      Name : <%= f.text_field :ques %>
+     </p>
+     <p>
+      Option A : <%= f.text_field :optA %>
+     </p>
+     <p>
+      Option B : <%= f.text_field :optB %>
+     </p>
+     <p>
+      Option C : <%= f.text_field :optC %>
+     </p>
+     <p>
+      Option D : <%= f.text_field :optD %>
+     </p>
+     <p>
+      Correct Option : <%= f.text_field :correctopt %>
+     </p>
+    <p>
+      <%= f.submit 'Create Question' %>
+    </p>
+    <% end %>

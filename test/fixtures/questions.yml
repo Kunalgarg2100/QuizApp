@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ques: MyText
+  optA: MyString
+  optB: MyString
+  optC: MyString
+  optD: MyString
+  correctopt: MyString
+  subgenre: one
+
+two:
+  ques: MyText
+  optA: MyString
+  optB: MyString
+  optC: MyString
+  optD: MyString
+  correctopt: MyString
+  subgenre: two

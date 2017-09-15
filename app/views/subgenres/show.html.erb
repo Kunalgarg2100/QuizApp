@@ -1,0 +1,15 @@
+<%= @subgenre.cont %>
+
+<% for task in @subgenre.questions %>
+<ol type="A">
+<%= task.ques %>
+  	<%= link_to "delete", task, method: :delete, data: { confirm: "You sure?" } %>
+<li><%= task.optA %></li>
+<li><%= task.optB %></li>
+<li><%= task.optC %></li>
+<li><%= task.optD %></li>
+</ol>
+Answer: <%= task.correctopt %><br/>
+<% end %>
+  	<%= link_to "Add new", new_question_path(:subgenre => @subgenre.id) %>
+

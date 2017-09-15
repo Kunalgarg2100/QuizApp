@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  
+  #dependent: :destroy
 	attr_accessor :remember_token
 
 #	  validates :name, presence: true
