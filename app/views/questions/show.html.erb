@@ -1,0 +1,16 @@
+<%= form_for(@question) do |f| %>
+<%= $i+1 %> <%= @question.ques %>
+	<div class="optios">
+	<%= f.label :A, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optA,style:"position:relative;margin-left: 20px;" %><span><%= @question.optA %></span><% end %>
+    <br/>
+    <%= f.label :B, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optB,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optB %></span><% end %>
+    <br/>
+    <%= f.label :C, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optC,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optC %></span><% end %>
+    <br/>
+	<%= f.label :D, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optD,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optD %></span><% end %>
+    </div><br/><br/><br/>
+    <div class="actions">
+  <%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
+  <%= f.submit "Submit" %>
+  </div>
+<% end %>

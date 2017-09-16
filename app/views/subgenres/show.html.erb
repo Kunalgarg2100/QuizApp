@@ -13,3 +13,5 @@ Answer: <%= task.correctopt %><br/>
 <% end %>
   	<%= link_to "Add new", new_question_path(:subgenre => @subgenre.id) %>
 
+  	<%= link_to "Start Quiz", quiz_path(:subgenre => @subgenre.id ,:genre => @subgenre.genre_id) %>
+

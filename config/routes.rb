@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   get    '/addques',   to: 'genres#new'
   post    '/addques',   to: 'genres#create'
+  get    '/quiz',   to: 'questions#show'
 
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
@@ -20,7 +21,4 @@ Rails.application.routes.draw do
   resources :genres
   resources :subgenres 
   resources :questions 
-
-
-
 end

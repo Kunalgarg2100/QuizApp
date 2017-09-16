@@ -19,6 +19,7 @@ gem 'omniauth'
 gem 'oauth2'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
+gem 'ransack'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

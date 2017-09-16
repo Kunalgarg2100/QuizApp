@@ -30,6 +30,7 @@ class SubgenresController < ApplicationController
 	end
 	def show
     	@subgenre = Subgenre.find(params[:id])
+    	@question = @subgenre.questions.first
     	#@subgenres = @genre.subgenres.all
 
   	end
