@@ -1,16 +1,45 @@
+<% if($totalques==$i) %>
+<% $i= 0 %>
+Score: - <%= $score %>
+<% $score= 0 %>
+
+Questions Completed
+   <%= link_to "Go to Environment", root_path %>
+
+<% else %>
 <%= form_for(@question) do |f| %>
-<%= $i+1 %> <%= @question.ques %>
+
+<% if @question.correctopt.length > 1 %>
+  <h3> Multiple Correct </h3>
+  Q<%= $i+1 %>. <%= @question.ques %>
+
 	<div class="optios">
-	<%= f.label :A, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optA,style:"position:relative;margin-left: 20px;" %><span><%= @question.optA %></span><% end %>
+	<%= f.label :A, class:"checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optA,style:"position:relative;margin-left: 20px;" %><span><%= @question.optA %></span><% end %>
     <br/>
-    <%= f.label :B, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optB,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optB %></span><% end %>
+    <%= f.label :B, class:"checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optB,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optB %></span><% end %>
     <br/>
-    <%= f.label :C, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optC,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optC %></span><% end %>
+    <%= f.label :C, class:"checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optC,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optC %></span><% end %>
     <br/>
-	<%= f.label :D, class: "checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optD,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optD %></span><% end %>
+	<%= f.label :D, class:"checkbox inline", style:"position:absolute;margin-top: +10px;" do %><%= f.check_box :optD,style:"position:relative;margin-left: 20px;"  %><span><%= @question.optD %></span><% end %>
     </div><br/><br/><br/>
     <div class="actions">
   <%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
   <%= f.submit "Submit" %>
   </div>
+  <% else %>
+  <h3> Single Correct </h3>
+  Q<%= $i+1 %>. <%= @question.ques %>
+  <div class="radio_left">
+
+    <%= f.radio_button :country, 'A' , :checked => "checked" %><span><%= @question.optA %></span><br />
+    <%= f.radio_button :country, 'B' %><span><%= @question.optB %></span><br />
+    <%= f.radio_button :country, 'C' %><span><%= @question.optC %></span><br />
+    <%= f.radio_button :country, 'D' %><span><%= @question.optD %></span><br />
+  <%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
+  </div>
+  <%= f.submit "Submit" %>
+
+<% end %>
+<% end %>
+
 <% end %>

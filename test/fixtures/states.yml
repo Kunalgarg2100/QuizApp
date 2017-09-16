@@ -2,10 +2,12 @@
 
 one:
   user: one
-  question: one
+  subgenre: one
+  qno: 1
   score: 1
 
 two:
   user: two
-  question: two
+  subgenre: two
+  qno: 1
   score: 1

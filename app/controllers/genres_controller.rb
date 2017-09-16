@@ -1,5 +1,8 @@
 class GenresController < ApplicationController
+
 	 def index
+      $i=0
+      $score=0
     #@user = User.find(params[:id])
     	@genres = Genre.all
 

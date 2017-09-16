@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 	$totalques=0
 	def new
 		@question = Question.new
-    	$hello = Subgenre.find(params[:subgenre])
+    $hello = Subgenre.find(params[:subgenre])
 	end
 
 	def create
@@ -32,14 +32,9 @@ class QuestionsController < ApplicationController
 	end
 
 	def show
-		$totalques = Question.where(subgenre_id:params[:subgenre]).count
+		  $totalques = Question.where(subgenre_id:params[:subgenre]).count
   		print($i.to_s + "\n")
 
-  		if($totalques==$i)
-  			$i=0
-  			print($score.to_s + "\n")
-  			redirect_to root_url
-  		end
 		print("show")
 		@questions = Question.where(subgenre_id:params[:subgenre])
     	@question = Question.where(subgenre_id:params[:subgenre])[$i]
@@ -48,22 +43,30 @@ class QuestionsController < ApplicationController
   	def update
   		arr = ""
   		subgenre_id = params[:subgenre_id]
+      print("\n")
+      print(subgenre_id)
+
   		genre_id = Subgenre.find(params[:subgenre_id]).genre_id
+      x = Question.where(subgenre_id:subgenre_id)[$i]
+      if(x.correctopt.length>1)
+    		if(params[:question][:optA].eql?("1"))
+    			arr = arr + "A"
+    		end
 
-  		if(params[:question][:optA].eql?("1"))
-  			arr = arr + "A"
-  		end
+    		if(params[:question][:optB].eql?("1"))
+    			arr = arr + "B"
+    		end
 
-  		if(params[:question][:optB].eql?("1"))
-  			arr = arr + "B"
-  		end
+    		if(params[:question][:optC].eql?("1"))
+    			arr = arr + "C"
+    		end
+    		if(params[:question][:optD].eql?("1"))
+    			arr = arr + "D"
+    		end
+      else
+        arr = params[:question][:country]
 
-  		if(params[:question][:optC].eql?("1"))
-  			arr = arr + "C"
-  		end
-  		if(params[:question][:optD].eql?("1"))
-  			arr = arr + "D"
-  		end
+      end
   		print("answer =\n")
   		print(arr)
   		if arr.empty?
@@ -74,12 +77,16 @@ class QuestionsController < ApplicationController
   			redirect_back(fallback_location: 'show')
   		else
   			print(subgenre_id.to_s + "\n")
-  			x = Question.where(subgenre_id:subgenre_id)[$i]
-  			print(x.correctopt)
+  			#x = Question.where(subgenre_id:subgenre_id)[$i]
+  			#print(x.correctopt)
   			
   			#x = x.correctopt
   			if( x.correctopt.eql?(arr))
+          flash[:success]="Correct Answer"
   				$score +=10
+        else
+          flash[:danger]="Incorrect Answer"
+
   			end	
   			print($i.to_s + "\n")
   			$i+=1
