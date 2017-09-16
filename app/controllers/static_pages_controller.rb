@@ -14,4 +14,12 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+
+  def index
+    @genres = Genre.all
+  end
+
+  def show
+    $k = params[:subgenre]
+  end
 end

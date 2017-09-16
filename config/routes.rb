@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get  '/help',    to: 'static_pages#help'
   get  '/about',   to: 'static_pages#about'
   get  '/contact', to: 'static_pages#contact'
+  get  '/leaderboard', to: 'static_pages#index'
+  get  '/leaderboard/:subgenre', to: 'static_pages#show'
+
+
    get  '/signup',  to: 'users#new'
   #root 'application#hello'
   post '/signup',  to: 'users#create'

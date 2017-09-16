@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913213507) do
+ActiveRecord::Schema.define(version: 20170916192519) do
 
   create_table "genres", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "leaderboards", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "subgenre_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subgenre_id"], name: "index_leaderboards_on_subgenre_id"
+    t.index ["user_id"], name: "index_leaderboards_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -29,6 +39,17 @@ ActiveRecord::Schema.define(version: 20170913213507) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subgenre_id"], name: "index_questions_on_subgenre_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "subgenre_id"
+    t.integer "qno"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subgenre_id"], name: "index_states_on_subgenre_id"
+    t.index ["user_id"], name: "index_states_on_user_id"
   end
 
   create_table "stats", force: :cascade do |t|

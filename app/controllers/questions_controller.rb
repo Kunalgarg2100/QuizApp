@@ -3,6 +3,8 @@ class QuestionsController < ApplicationController
 	$i=0
 	$score = 0
 	$totalques=0
+  $lead=0
+  $k=0
 	def new
 		@question = Question.new
     $hello = Subgenre.find(params[:subgenre])
@@ -21,7 +23,7 @@ class QuestionsController < ApplicationController
     end
 
     def destroy
-		y = Question.find(params[:id]).subgenre_id
+		  y = Question.find(params[:id]).subgenre_id
     	Question.find(params[:id]).destroy
     	flash[:success] = "Question deleted"
     	redirect_to subgenre_url(y)
@@ -33,10 +35,30 @@ class QuestionsController < ApplicationController
 
 	def show
 		  $totalques = Question.where(subgenre_id:params[:subgenre]).count
-  		print($i.to_s + "\n")
-
-		print("show")
-		@questions = Question.where(subgenre_id:params[:subgenre])
+      
+      user_id = session[:user_id]
+      $k = params[:subgenre]
+      subgenre_id = params[:subgenre]
+      le = Leaderboard.find_by(user_id:user_id,subgenre_id:subgenre_id)
+      if(le)
+        $lead =  le.score
+      end
+  		
+      if($i == $totalques)
+        qw = State.find_by(user_id:user_id,subgenre_id:subgenre_id)
+        if(qw)
+          qw.destroy
+        end
+      end
+      print($i.to_s + "\n")
+      if(params[:restore]=="1")
+        q = State.find_by(user_id:user_id,subgenre_id:subgenre_id)
+        if(q)
+          $i = q.qno+1
+        end
+      end
+  		print("show")
+	 	  @questions = Question.where(subgenre_id:params[:subgenre])
     	@question = Question.where(subgenre_id:params[:subgenre])[$i]
   	end
 
@@ -45,9 +67,15 @@ class QuestionsController < ApplicationController
   		subgenre_id = params[:subgenre_id]
       print("\n")
       print(subgenre_id)
-
-  		genre_id = Subgenre.find(params[:subgenre_id]).genre_id
+      print("\n")
+      print("user id")
+      user_id = session[:user_id]
+      print(session[:user_id])
+      print("\n")
+  		
+      genre_id = Subgenre.find(params[:subgenre_id]).genre_id
       x = Question.where(subgenre_id:subgenre_id)[$i]
+
       if(x.correctopt.length>1)
     		if(params[:question][:optA].eql?("1"))
     			arr = arr + "A"
@@ -65,7 +93,6 @@ class QuestionsController < ApplicationController
     		end
       else
         arr = params[:question][:country]
-
       end
   		print("answer =\n")
   		print(arr)
@@ -76,18 +103,32 @@ class QuestionsController < ApplicationController
   			#redirect_to '/quiz?genre=' + genre_id.to_s + "&subgenre=" +  subgenre_id.to_s
   			redirect_back(fallback_location: 'show')
   		else
-  			print(subgenre_id.to_s + "\n")
-  			#x = Question.where(subgenre_id:subgenre_id)[$i]
-  			#print(x.correctopt)
-  			
-  			#x = x.correctopt
-  			if( x.correctopt.eql?(arr))
+        if(x.correctopt.eql?(arr))
           flash[:success]="Correct Answer"
-  				$score +=10
+          $score +=10
         else
           flash[:danger]="Incorrect Answer"
+        end
+        qw = State.find_by(user_id:user_id,subgenre_id:subgenre_id)
+        qr = Leaderboard.find_by(user_id:user_id,subgenre_id:subgenre_id)
+        if(qw)
+          qw.update_attributes(:score => $score, :qno => $i)
+        else
+          State.create(user_id:user_id,subgenre_id:subgenre_id,score:$score,qno:$i)
+        end
 
-  			end	
+        if(qr)
+          if(qr.score < $score)
+            qr.update_attributes(:score => $score)
+          end
+        else
+            Leaderboard.create(user_id:user_id,subgenre_id:subgenre_id,score:$score)
+        end
+        
+
+        $lead =  Leaderboard.find_by(user_id:user_id,subgenre_id:subgenre_id).score
+
+	
   			print($i.to_s + "\n")
   			$i+=1
   			print($i.to_s + "\n")

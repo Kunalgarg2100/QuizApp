@@ -12,6 +12,7 @@
 Answer: <%= task.correctopt %><br/>
 <% end %>
   	<%= link_to "Add new", new_question_path(:subgenre => @subgenre.id) %>
-
-  	<%= link_to "Start Quiz", quiz_path(:subgenre => @subgenre.id ,:genre => @subgenre.genre_id) %>
-
+  	<%= link_to "Start Quiz", quiz_path(:subgenre => @subgenre.id ,:genre => @subgenre.genre_id, :restore => 0) %>
+ <% if(State.find_by(user_id:session[:user_id],subgenre_id:@subgenre.id)) %>
+  	<%= link_to "Restore Quiz", quiz_path(:subgenre => @subgenre.id ,:genre => @subgenre.genre_id, :restore => 1) %>
+<% end %>

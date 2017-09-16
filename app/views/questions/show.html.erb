@@ -2,8 +2,13 @@
 <% $i= 0 %>
 Score: - <%= $score %>
 <% $score= 0 %>
+Maxscore :- <%= $lead %>
 
 Questions Completed
+
+<% for t in Leaderboard.where(subgenre_id:$k) %>
+  <li><%= User.find(t.user_id).name %>  <%= t.score %></li>
+<% end %>
    <%= link_to "Go to Environment", root_path %>
 
 <% else %>
@@ -11,6 +16,10 @@ Questions Completed
 
 <% if @question.correctopt.length > 1 %>
   <h3> Multiple Correct </h3>
+  <%= $score %>
+  <br/>
+   <%= $lead %>
+  <br/>
   Q<%= $i+1 %>. <%= @question.ques %>
 
 	<div class="optios">
@@ -28,6 +37,10 @@ Questions Completed
   </div>
   <% else %>
   <h3> Single Correct </h3>
+  <%= $score %>
+  <br/>
+   <%= $lead %>
+  <br/>
   Q<%= $i+1 %>. <%= @question.ques %>
   <div class="radio_left">
 
