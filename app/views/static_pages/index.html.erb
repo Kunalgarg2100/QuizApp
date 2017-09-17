@@ -1,16 +1,13 @@
-<% provide(:title, 'All users') %>
-<h1>All Genres with sublisting</h1>
+<% provide(:title, 'Leaderboard') %>
+<h1>Welcome to Leaderboard</h1>
 <ol type="1">
 <% for genre in @genres %>
-  <li>
-  <%= genre.content %>
-  <% if current_user.admin?%>
-  <%= link_to "delete", genre, method: :delete, data: { confirm: "You sure?" } %></li>
-  <% end %>
-  <ul>
+  <li><%= genre.content %><ul>
+  <div class="list-group">
   <% for task in genre.subgenres %>
-	<li><%= link_to task.cont, "/leaderboard/#{task.id}"  %></li>
+	<li class="list-group-item list-group-item-action"><%= link_to task.cont, "/leaderboard/#{task.id}"  %></li>
   <% end %>
+  </div>
   </ul>
   </li>
 <% end %>

@@ -1,20 +1,24 @@
-<% provide(:title, 'All users') %>
-<h1>All Genres with sublisting</h1>
+<% provide(:title, 'Genres') %>
+<h1>Topics</h1>
 <ol type="1">
+<div class="genres">
 <% for genre in @genres %>
   <li>
   <%= link_to genre.content, genre %>
-  <% if current_user.admin?%>
-  <%= link_to "delete", genre, method: :delete, data: { confirm: "You sure?" } %></li>
-  <% end %>
+  
   <ul>
   <% for task in genre.subgenres %>
-	<li><%= task.cont %></li>
+  <%= link_to task.cont , task ,class: "task list-group-item list-group-item-action", style: "width:12%;font-size: large;" %>
   <% end %>
   </ul>
-  </li>
+  <% if current_user.admin?%>
+  <div class="del">
+  <%= link_to "Delete", genre, method: :delete, data: { confirm: "You sure?" } %> | <%= link_to "Edit", edit_genre_path(genre) %>
+  </div>
+  <% end %>
 <% end %>
-</ul>
+</div>
+</ol>
 <% if current_user.admin?%>
-  	<%= link_to "Add new Genre", new_genre_path %>
+  	<%= link_to "Add new Genre", new_genre_path ,class: "btn btn-info"%>
  <% end %>

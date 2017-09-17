@@ -1,12 +1,17 @@
-<ul class="users">
 <h1> List of subgenres in <%= @genre.content %> </h1>
 <% if current_user.admin?%>
-Subgenre<br/> 
-<% for task in @genre.subgenres %>
-	<li><%= link_to task.cont, task %>
-  	<%= link_to "delete", task, method: :delete, data: { confirm: "You sure?" } %></li>
- <% end %>
 
+<ul class="list-group" style="width: 15%">
+<table>
+<% for task in @genre.subgenres %>
+	<tr>
+	<td>
+	<%= link_to task.cont , task ,class: "list-group-item list-group-item-action", style: "font-size: large;" %>
+	</td>
+	<td>
+  	<%= link_to "Delete", task, method: :delete, data: { confirm: "You sure?" }, class:"del" %></td></tr>
+ <% end %>
+</table>
 <% else %>
 <% for task in @genre.subgenres %>
 	<li><%= link_to task.cont , quiz_path(:subgenre => task.id ,:genre => @genre.id) %></li>

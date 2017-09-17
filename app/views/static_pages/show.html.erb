@@ -1,12 +1,23 @@
-<table class="table table-striped table-hover">
+<div class="center jumbotron">
+    <h1>Leaderboard of <%= Subgenre.find($k).cont %>!</h1>
+</div>
+<table class="table table-hover">
+<thead class="thead">
 <tr>
-	<th class="danger">User name</th>
-	<th>Score</th>
+	<th class="danger">#</th>
+	<th class="info	">User name</th>
+	<th class="danger">Score</th>
 </tr>
+</thead>
+<% temp=0 %>
+<tbody>
 <% for t in Leaderboard.where(subgenre_id:$k) %>
   <tr>
+  <% temp+=1 %>
+  <td><%= temp %> </td>
   <td><%= User.find(t.user_id).name %> </td>
   <td> <%= t.score %></td>
   </tr>
 <% end %>
+</tbody>
 </table>

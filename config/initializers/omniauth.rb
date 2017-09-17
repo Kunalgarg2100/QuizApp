@@ -1,5 +1,3 @@
-OmniAuth.config.logger = Rails.logger
-
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, '294242504392568', '7c3dfcfb1ebffb4cc603a2009859e4a1', {:client_options => {:ssl => {:ca_file => Rails.root.join("cacert.pem").to_s}}}
+  provider :google_oauth2, ENV['33251279595-0o1pf7vtv2rdn0ga9t1o03be1fima6nq.apps.googleusercontent.com'], ENV['0TicTBtj1M-0O-vEMj6qKuZ-']
 end

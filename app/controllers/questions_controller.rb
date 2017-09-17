@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :logged_in_user, only: [:show]
+
 	$hello =""
 	$i=0
 	$score = 0
@@ -96,7 +98,7 @@ class QuestionsController < ApplicationController
       end
   		print("answer =\n")
   		print(arr)
-  		if arr.empty?
+  		if arr.to_s.empty?
   			flash[:danger]="please select an option"
   		#	@questions = Question.where(subgenre_id:params[:subgenre])
   			#render 'quiz'

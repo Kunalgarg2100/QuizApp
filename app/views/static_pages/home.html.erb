@@ -1,14 +1,82 @@
 <% provide(:title, "Home") %>
-<div class="center jumbotron">
-  <h1>Welcome to the Quiz App</h1>
+<% if logged_in? %>
 
-  <h2>
-    This is the home page for the
-    <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
+	<div class="center jumbotron">
+		<h1>Welcome to the Quiz App!</h1>
+	</div>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %></div>
+	<% if(Leaderboard.find_by(user_id:session[:user_id])) %>
+		<h1> Completed Quizes </h1>
+		<table class="table table-striped table-hover">
+			<thead class="thead">
+				<tr style="font-size: 18px">
+					<th  style="background-color: #9f9fa0">#</th>
+					<th  style="background-color: #9f9fa0">Topic</th>
+					<th style="background-color: #9f9fa0">Score</th>
+				</tr>
+			</thead>
+			<% temp=0 %>
+			<% for t in Leaderboard.where(user_id:session[:user_id]) %>
+				<tr><% temp+=1 %>
+				<td><%= temp %> </td>
+				<td><%= Subgenre.find(t.subgenre_id).cont %> </td>
+				<td> <%= t.score %></td>
+				</tr>
+			<% end %>
+		</table>
+	<% else %>
+		<h1>Get started with Quiz App</h1>
+		<div class="wrapper" style="text-align: center;"> 
+			<%= link_to "Quizes", genres_path, class: "btn btn-default  btn-lg" %>
+		</div>
+	<% end %>
+
+	<% cnt =0 %>
+	<% for t in Leaderboard.where(user_id:session[:user_id]) %>
+		<% x = State.find_by(user_id:session[:user_id],subgenre_id:t.subgenre_id) %>
+		<% if(x) %>
+			<% cnt = 1%>
+			<% break %>
+		<% end %>
+	<% end %>
+
+	<% if cnt == 1 %>
+		<h1> Partially Completed quizes </h1>
+		<table class="table table-striped table-hover">
+			<thead class="thead"  style="background-color: #db7815" >
+				<tr style="font-size: 18px">
+					<th >#</th>
+					<th >Topic</th>
+					<th style="width: 20%">Score</th>
+					<th style="width: 25%">Restore Quiz</th>
+				</tr>
+			</thead>
+			<% temp=0 %>
+			<% for t in Leaderboard.where(user_id:session[:user_id]) %>
+				<% x = State.find_by(user_id:session[:user_id],subgenre_id:t.subgenre_id) %>
+				<% if(x) %>
+					<% y = Subgenre.find(t.subgenre_id) %>
+					<tr><% temp+=1 %>
+					<td><%= temp %> </td>
+					<td><%= y.cont %> </td>
+					<td> <%= x.score %></td>
+					<td><%= link_to "Restore Quiz", quiz_path(:subgenre => t.subgenre.id ,:genre => y.genre_id, :restore => 1), class: "btn btn-default btn-sm" %></td></tr>
+				<% end %>
+			<% end %>
+		</table>
+	<% end %>
+
+	<div class="wrapper" style="text-align: center;"> 
+		<%= link_to "Quizes", genres_path, class: "btn btn-default  btn-lg" %>
+	</div>
 
 
-<!--%= link_to image_tag("kitten.jpg", alt: "Rails logo") , 'http://rubyonrails.org/' %-->
+<% else %> 
+	<div class="jumbotron">
+		<div class="container">  
+			<h1>Welcome to the Quiz App!</h1>
+			<p style="text-align: center;">Register to get started!</p>
+			<p style="text-align: center;"><%= link_to 'Register Now', signup_path, class: 'btn btn-primary btn-lg'%></p>
+		</div>
+	</div>
+<% end %>

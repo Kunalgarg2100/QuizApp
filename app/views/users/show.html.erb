@@ -1,13 +1,69 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
+<div class="jumbotron">
+	<aside class="col-md-4">
+		<section class="user_info">
+			<%= gravatar_for @user %>
+		</section>
+	</aside>
+	<h1><b><%= @user.name %></b></h1>
+	<p>
+		<b>User ID</b> : <%= @user.id %><br/><br/><br/>
+		<b>Email</b> : <%= @user.email %>
+	</p>
 </div>
 
+<% if(Leaderboard.find_by(user_id:@user.id)) %>
+		<h1> Completed Quizes </h1>
+		<table class="table table-striped table-hover">
+			<thead class="thead">
+				<tr style="font-size: 18px">
+					<th  style="background-color: #9f9fa0">#</th>
+					<th  style="background-color: #9f9fa0">Topic</th>
+					<th style="background-color: #9f9fa0">Score</th>
+				</tr>
+			</thead>
+			<% temp=0 %>
+			<% for t in Leaderboard.where(user_id:@user.id) %>
+				<tr><% temp+=1 %>
+				<td><%= temp %> </td>
+				<td><%= Subgenre.find(t.subgenre_id).cont %> </td>
+				<td> <%= t.score %></td>
+				</tr>
+			<% end %>
+		</table>
+	<% else %>
+		<h1>No Quizes attempted</h1>
+	<% end %>
 
+	<% cnt =0 %>
+	<% for t in Leaderboard.where(user_id:@user.id) %>
+		<% x = State.find_by(user_id:@user.id,subgenre_id:t.subgenre_id) %>
+		<% if(x) %>
+			<% cnt = 1%>
+			<% break %>
+		<% end %>
+	<% end %>
+
+	<% if cnt == 1 %>
+		<h1> Partially Completed quizes </h1>
+		<table class="table table-striped table-hover">
+			<thead class="thead"  style="background-color: #db7815" >
+				<tr style="font-size: 18px">
+					<th >#</th>
+					<th >Topic</th>
+					<th >Score</th>
+				</tr>
+			</thead>
+			<% temp=0 %>
+			<% for t in Leaderboard.where(user_id:@user.id) %>
+				<% x = State.find_by(user_id:@user.id,subgenre_id:t.subgenre_id) %>
+				<% if(x) %>
+					<% y = Subgenre.find(t.subgenre_id) %>
+					<tr><% temp+=1 %>
+					<td><%= temp %> </td>
+					<td><%= y.cont %> </td>
+					<td> <%= x.score %></td>
+				<% end %>
+			<% end %>
+		</table>
+	<% end %>

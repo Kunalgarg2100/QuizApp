@@ -6,7 +6,7 @@ gem 'bcrypt',         '3.1.11'
 gem 'faker',          '1.7.3'
 gem 'will_paginate',           '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
-
+gem 'bootstrap-table-rails'
 gem 'puma',         '3.9.1'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
@@ -16,11 +16,14 @@ gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
 gem 'rails-controller-testing'
 gem 'omniauth'
+gem 'omniauth-auth0', '~> 1.4.1'
 gem 'oauth2'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
 gem 'ransack'
+gem 'omniauth-google-oauth2'
 
+gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
