@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get  '/leaderboard', to: 'static_pages#index'
   get  '/leaderboard/:subgenre', to: 'static_pages#show'
 
-
+  post '/life_line' ,to: 'questions#lifeline'
+  post '/doub_line' ,to: 'questions#doublife'
+  
    get  '/signup',  to: 'users#new'
   #root 'application#hello'
   post '/signup',  to: 'users#create'

@@ -1,15 +1,16 @@
 <% provide(:title, 'Leaderboard') %>
 <h1>Welcome to Leaderboard</h1>
 <ol type="1">
+<div class="genres">
 <% for genre in @genres %>
-  <li><%= genre.content %><ul>
-  <div class="list-group">
+  <li><%= genre.content %>
+  <ul>
+
   <% for task in genre.subgenres %>
-	<li class="list-group-item list-group-item-action"><%= link_to task.cont, "/leaderboard/#{task.id}"  %></li>
+    <%= link_to task.cont , "/leaderboard/#{task.id}" ,class: "task list-group-item list-group-item-action", style: "width:12%;font-size: large;" %>
   <% end %>
-  </div>
   </ul>
   </li>
 <% end %>
-</ul>
-
+</div>
+</ol>

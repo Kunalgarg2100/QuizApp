@@ -11,14 +11,20 @@
   <%= link_to task.cont , task ,class: "task list-group-item list-group-item-action", style: "width:12%;font-size: large;" %>
   <% end %>
   </ul>
+  <% if logged_in? %>
   <% if current_user.admin?%>
   <div class="del">
   <%= link_to "Delete", genre, method: :delete, data: { confirm: "You sure?" } %> | <%= link_to "Edit", edit_genre_path(genre) %>
   </div>
   <% end %>
+  <% end %>
+
 <% end %>
 </div>
 </ol>
+<% if logged_in? %>
 <% if current_user.admin?%>
   	<%= link_to "Add new Genre", new_genre_path ,class: "btn btn-info"%>
  <% end %>
+ <% end %>
+

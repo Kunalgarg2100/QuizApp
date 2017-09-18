@@ -1,147 +1,172 @@
 
 <% if($totalques==$i) %>
 
-<% $i= 0 %>
+	<% $i= 0 %>
 
-<!-- The Modal -->
-        <div id="myModal" class="modal" style="display: block">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2 class="gamehead">Quiz Completed!</h2>
-                </div>
-                <div class="modal-footer">
-                    <h2 id="demo" onmouseover="" style="cursor:pointer;">You scored <%= $score %> points</h2>
-                </div>
-            </div>
+	<!-- The Modal -->
+	<div id="myModal" class="modal" style="display: block">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<h2 class="gamehead">Quiz Completed!</h2>
+			</div>
+			<div class="modal-footer">
+				<h2 id="demo" onmouseover="" style="cursor:pointer;">You scored <%= $score %> points</h2>
+			</div>
+		</div>
 
-        </div>
-<script type="text/javascript">
-  $('document').ready(function() {
-  setTimeout(function() {
-    $('.alert').slideUp();
-  }, 3000);
+	</div>
+	<script type="text/javascript">
+$('document').ready(function() {
+	setTimeout(function() {
+		$('.alert').slideUp();
+	}, 2000);
 });
 
-</script>
-<div class="center jumbotron">
-    <h1>Leaderboard!</h1>
-    <h3>You scored <%= $score %> points</h3>
-</div>
-<% $score= 0 %>
+	</script>
+	<div class="center jumbotron">
+		<h1>Leaderboard!</h1>
+		<h3>You scored <%= $score %> points</h3>
+	</div>
+	<% $score= 0 %>
 
-<table class="table table-hover">
-<thead class="thead">
-<tr>
-  <th class="danger">#</th>
-  <th class="info ">User name</th>
-  <th class="danger">Score</th>
-</tr>
-</thead>
-<% temp=0 %>
-<% for t in Leaderboard.where(subgenre_id:$k) %>
-  <tr>
-  <% temp+=1 %>
-  <td><%= temp %> </td>
-  <td><%= User.find(t.user_id).name %> </td>
-  <td> <%= t.score %></td>
-  </tr>
- <% end %>
-</table>
-<div style="width:100%;">
-    <div style="float: left; width:18%"> 
-    <%= link_to "Play another Quiz", genres_path, class: "btn btn-default  btn-lg" %>
-    </div>
-    <div style="float: right; width:12%"> 
-    <%= link_to "Home Page", root_path, class: "btn btn-default btn-lg"%> 
-    </div>
-</div>
+	<table class="table table-hover">
+		<thead class="thead">
+			<tr>
+				<th class="danger">#</th>
+				<th class="info ">User name</th>
+				<th class="danger">Score</th>
+			</tr>
+		</thead>
+		<% temp=0 %>
+		<% for t in Leaderboard.where(subgenre_id:$k) %>
+			<tr>
+				<% temp+=1 %>
+				<td><%= temp %> </td>
+				<td><%= User.find(t.user_id).name %> </td>
+				<td> <%= t.score %></td>
+			</tr>
+		<% end %>
+	</table>
+	<div style="width:100%;">
+		<div style="float: left; width:18%"> 
+			<%= link_to "Play another Quiz", genres_path, class: "btn btn-default  btn-lg" %>
+		</div>
+		<div style="float: right; width:12%"> 
+			<%= link_to "Home Page", root_path, class: "btn btn-default btn-lg"%> 
+		</div>
+	</div>
 
-<div style="height: 20px">
-</div>
-   <script type="text/javascript">
+	<div style="height: 20px">
+	</div>
+	<script type="text/javascript">
 // Get the modal
-        var modal = document.getElementById('myModal');
-        var span = document.getElementsByClassName("close")[0];
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+	modal.style.display = "none";
+}
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}
+}
 
-</script>
+	</script>
 
 <% else %>
-<%= form_for(@question) do |f| %>
+	<%= form_for(@question) do |f| %>
 
+		  
+			<h4>Current Score : <%= $score %></h4>
 <% if @question.correctopt.length > 1 %>
-<h4>Current Score : <%= $score %></h4>
 
-  <h3>Type : Multiple Correct </h3>
-  <h4  style="font-weight: bold">Question-<%= $i+1 %>:</h4>
-   <h4  style="font-weight: bold;font-size: x-large;"><%= @question.ques %></h4>
+      <h3>Type : Multiple Correct </h3>
+<% else %>
 
-	<div class="optios">
-	<%= f.label :optA, class:"checkbox inline", style:"position:absolute;margin-top: 2px;" do %><%= f.check_box :optA, :checked => "checked",style:"position:relative;margin-left: 20px;" %><span style="font-size: medium;"><%= @question.optA %></span><% end %>
-    <br/>
-    <%= f.label :optB, class:"checkbox inline", style:"position:absolute;margin-top: 2px;" do %><%= f.check_box :optB,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optB %></span><% end %>
-    <br/>
-    <%= f.label :optC, class:"checkbox inline", style:"position:absolute;margin-top: 2px;" do %><%= f.check_box :optC,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optC %></span><% end %>
-    <br/>
-	<%= f.label :optD, class:"checkbox inline", style:"position:absolute;margin-top: 2px;" do %><%= f.check_box :optD,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optD %></span><% end %>
-    </div><br/><br/><br/>
-    <div class="actions">
-  <%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
-  <p><%= f.submit "Submit",class: 'btn btn-primary' ,style: "width:10%" %></p>
-  </div>
+			<h3>Type : Single Correct </h3>
+      <% end %>
+			<h4  style="font-weight: bold">Question-<%= $i+1 %>:</h4>
+			<h4  style="font-weight: bold;font-size: x-large;"><%= @question.ques %></h4>
+
+			<div class="optios">
+				<%= f.label :optA, class:"checkbox inline", style:"position:absolute;margin-top: 2px;",id:"c1" do %><%= f.check_box :optA, style:"position:relative;margin-left: 20px;" %><span style="font-size: medium;"><%= @question.optA %></span><% end %>
+				<br/>
+				<%= f.label :optB, class:"checkbox inline", style:"position:absolute;margin-top: 2px;",id:"c2" do %><%= f.check_box :optB,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optB %></span><% end %>
+				<br/>
+				<%= f.label :optC, class:"checkbox inline", style:"position:absolute;margin-top: 2px;",id:"c3" do %><%= f.check_box :optC,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optC %></span><% end %>
+				<br/>
+				<%= f.label :optD, class:"checkbox inline", style:"position:absolute;margin-top: 2px;", id:"c4" do %><%= f.check_box :optD,style:"position:relative;margin-left: 20px;"  %><span  style="font-size: medium;"><%= @question.optD %></span><% end %>
+			</div><br/><br/><br/>
+			<div class="actions">
+				<%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
+				<p><%= f.submit "Submit",class: 'btn btn-primary' ,style: "width:10%" %></p>
+			</div>
+		  
+	<% end %>
+    <h1 id="debug"></h1> 
+
+  <% if($fif == 0) %>
+  <% if(@question.correctopt.length==1) %>
+	<form action="/life_line" method="post" onsubmit=fun()>
+		<input type="submit" value="50-50" id="try" class="btn btn-primary" style="width: 10%">
+	</form>
   <% else %>
-  <h4>Current Score : <%= $score %></h4>
+    <input type="submit" value="50-50" disabled="true" class="btn btn-danger" id="try" style="cursor: not-allowed;width: 10%">
+  <% end %>
+  <% else %>
+    <input type="submit" value="50-50" disabled="true" class="btn btn-danger" id="try" style="cursor: not-allowed;width: 10%">
+  <% end %>
 
-  <h3>Type : Single Correct </h3>
-  <h4  style="font-weight: bold">Question-<%= $i+1 %>:</h4>
-   <h4  style="font-weight: bold;font-size: x-large;"><%= @question.ques %></h4>
-   <div class="row">
-   <div class="col-sm-1" style="width: 5%;text-align: left">
-      <p><%= f.radio_button :country, 'A' , :checked => "checked" %></p>
-    </div>
-    <div class="col-sm-11" style="padding-left: 0px;padding-right:0px">
-      <p><label for="question_country_a" style="font-size: medium;font-weight:normal;"><%=@question.optA %></label></p></div></div>
+   <% if($dlf == 0) %>
+  <% if(@question.correctopt.length==1) %>
+  <form action="/doub_line" method="post" onsubmit=fun2()>
+    <input type="submit" value="Double Dip" id="dlf" class="btn btn-primary" style="width: 10%">
+  </form>
+  <% else %>
+    <input type="submit" value="Double Dip" disabled="true" class="btn btn-danger" id="dlf" style="cursor: not-allowed;width: 10%">
+  <% end %>
+  <% else %>
+    <input type="submit" value="Double Dip" disabled="true" class="btn btn-danger" id="dlf" style="cursor: not-allowed;width: 10%">
+  <% end %>
 
-       <div class="row">
-   <div class="col-sm-1" style="width: 5%;text-align: left">
-      <p><%= f.radio_button :country, 'B' %></p>
-    </div>
-    <div class="col-sm-11" style="padding-left: 0px;padding-right:0px">
-      <p><label for="question_country_b" style="font-size: medium;font-weight:normal;"><%=@question.optB %></label></p></div></div>
 
-         <div class="row">
-   <div class="col-sm-1" style="width: 5%;text-align: left">
-      <p><%= f.radio_button :country, 'C' %></p>
-    </div>
-    <div class="col-sm-11" style="padding-left: 0px;padding-right:0px">
-      <p><label for="question_country_c" style="font-size: medium;font-weight:normal;"><%=@question.optC %></label></p></div></div>
 
-         <div class="row">
-   <div class="col-sm-1" style="width: 5%;text-align: left">
-      <p><%= f.radio_button :country, 'D' %></p>
-    </div>
-    <div class="col-sm-11" style="padding-left: 0px;padding-right:0px">
-      <p><label for="question_country_d" style="font-size: medium;font-weight:normal;"><%=@question.optD %></label></p></div></div>
-  <%= hidden_field_tag 'subgenre_id' , @question.subgenre_id %>
-  <p><%= f.submit "Submit",class: 'btn btn-primary' ,style: "width:10%" %></p>
-<% end %>
-<% end %>
-<script type="text/javascript">
-  $('document').ready(function() {
-  setTimeout(function() {
-    $('.alert').slideUp();
-  }, 2000);
+
+   
+	<script type="text/javascript">
+$('document').ready(function() {
+	setTimeout(function() {
+		$('.alert').slideUp();
+	}, 2000);
 });
 
-</script>
+p = document.getElementById('try')
+var fun = function()
+{
+  p.disabled = true;
+  p.style = "cursor: not-allowed;width:10%"
+  x = <%= $outp[0] %>
+  console.log(<%= $outp[0] %>)
+  document.getElementById(x.id).style.display ="none"
+  x = <%= $outp[1] %>
+  document.getElementById(x.id).style.display ="none"
+  document.getElementById("question_optA").checked = false
+  document.getElementById("question_optB").checked = false
+  document.getElementById("question_optC").checked = false
+  document.getElementById("question_optD").checked = false
+
+
+}
+
+q = document.getElementById('dlf')
+var fun2 = function()
+{
+  q.disabled = true;
+  q.style = "cursor: not-allowed;width:10%"
+}
+
+  </script>
 
 <% end %>

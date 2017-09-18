@@ -4,20 +4,31 @@
   <h4>Question type is mentioned before every question</h4>
   <h3>Best of luck!</h3>
 </div>
+<div class="wrapper" style="text-align: center;">
+    <%= link_to "Leaderboard", "/leaderboard/#{@subgenre.id}", class: "btn btn-primary btn-lg"%> 
+    </div>
+<% if logged_in? %>
 <% if current_user.admin?%>
 
+<% temp=0 %>
 <% for task in @subgenre.questions %>
+<% temp+=1 %>
+<h4  style="font-weight: bold">Question-<%= temp %>:</h4>
+      <h4  style="font-weight: bold;font-size: large;"><%= @question.ques %></h4>
 <ol type="A">
-<%= task.ques %>
-  	<%= link_to "delete", task, method: :delete, data: { confirm: "You sure?" } %>
+
 <li><%= task.optA %></li>
 <li><%= task.optB %></li>
 <li><%= task.optC %></li>
 <li><%= task.optD %></li>
 </ol>
-Answer: <%= task.correctopt %><br/>
+
+<div class="del">Answer: <%= task.correctopt %> | <%= link_to "Delete question", task, method: :delete, data: { confirm: "You sure?" } %></div>
+
 <% end %>
-  	<%= link_to "Add new", new_question_path(:subgenre => @subgenre.id) %>
+
+  	<%= link_to "Add new Question", new_question_path(:subgenre => @subgenre.id), class: "btn btn-info" %>
+<% end %>
 <% end %>
 
  <% if(State.find_by(user_id:session[:user_id],subgenre_id:@subgenre.id)) %>

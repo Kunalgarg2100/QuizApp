@@ -1,4 +1,3 @@
-  <%= form_for(@genre) do |f| %>
   <% if @genre.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -13,17 +12,3 @@
       </ul>
     </div>
   <% end %>
-
-
-  <div class="field">
-     <%= f.label :content %>
-	 <%= f.text_field :content, class: 'form-control' %>
-  </div>
-  <%= f.fields_for :subgenres, Subgenre.new do |ff| %>
-    <p>
-      Subgenre: <%= ff.text_field :cont %>
-    </p>
-    <% end %>
-
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-	<% end %>
