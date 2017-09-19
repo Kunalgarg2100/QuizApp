@@ -1,25 +1,36 @@
   <% provide(:title, 'Add Question') %>
-  <h1>Quiz Setup</h1>
+  <h1>Add Question</h1>
+  <div class="row">
+  <div class="col-md-6 col-md-offset-3">
      <%= form_for @question do |f| %>
-     <p>
-      Name : <%= f.text_field :ques %>
-     </p>
-     <p>
-      Option A : <%= f.text_field :optA %>
-     </p>
-     <p>
-      Option B : <%= f.text_field :optB %>
-     </p>
-     <p>
-      Option C : <%= f.text_field :optC %>
-     </p>
-     <p>
-      Option D : <%= f.text_field :optD %>
-     </p>
-     <p>
-      Correct Option : <%= f.text_field :correctopt %>
-     </p>
+     <div class="field">
+      <%= f.label :Question %>
+      <%= f.text_field :ques, class: 'form-control' ,placeholder:"Question" %>
+    </div>
+    <div class="field">
+      <%= f.label :"Option A" %>
+      <%= f.text_field :optA, class: 'form-control' ,placeholder:"Option A"%>
+    </div>
+    <div class="field">
+      <%= f.label :"Option B" %>
+      <%= f.text_field :optB, class: 'form-control' ,placeholder:"Option B"%>
+    </div>
+    <div class="field">
+      <%= f.label :"Option C" %>
+      <%= f.text_field :optC, class: 'form-control' ,placeholder:"Option C"%>
+    </div>
+    <div class="field">
+      <%= f.label :"Option D" %>
+      <%= f.text_field :optD, class: 'form-control' ,placeholder:"Option D"%>
+    </div>
+    <div class="field">
+      <%= f.label :"Correct Option" %>
+      <%= f.text_field :correctopt, class: 'form-control',placeholder:"AB" %>
+    </div>
+    <%= hidden_field_tag :subgenre_id, $hello %>
     <p>
-      <%= f.submit 'Create Question' %>
+      <%= f.submit 'Create Question' , class: "btn btn-info"%>
     </p>
     <% end %>
+</div>
+</div>

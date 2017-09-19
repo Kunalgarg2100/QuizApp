@@ -52,16 +52,6 @@ ActiveRecord::Schema.define(version: 20170916192519) do
     t.index ["user_id"], name: "index_states_on_user_id"
   end
 
-  create_table "stats", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "question_id"
-    t.integer "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_stats_on_question_id"
-    t.index ["user_id"], name: "index_stats_on_user_id"
-  end
-
   create_table "subgenres", force: :cascade do |t|
     t.string "cont"
     t.integer "genre_id"

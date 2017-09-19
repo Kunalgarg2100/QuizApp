@@ -5,8 +5,8 @@
 			<%= gravatar_for @user %>
 		</section>
 	</aside>
-	<h1><b><%= @user.name %></b></h1>
-	<p>
+	<h1 style="text-align: right;"><b><%= @user.name %></b></h1>
+	<p style="text-align: right;">
 		<b>User ID</b> : <%= @user.id %><br/><br/><br/>
 		<b>Email</b> : <%= @user.email %>
 	</p>
@@ -33,6 +33,9 @@
 		</table>
 	<% else %>
 		<h1>No Quizes attempted</h1>
+		<div class="wrapper" style="text-align: center;"> 
+			<%= link_to "Quizes", genres_path, class: "btn btn-default  btn-lg" %>
+		</div>
 	<% end %>
 
 	<% cnt =0 %>

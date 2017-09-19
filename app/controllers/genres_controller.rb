@@ -18,11 +18,7 @@ class GenresController < ApplicationController
     	@genre = Genre.new(genre_params)
       print("\n")
       print(params[:genre][:content])
-      print(params[:genre][:subgenres_attributes][:cont])
-      if(!params[:genre][:subgenres_attributes][:cont])
-        flash[:danger] = "Please enter Subgenre"
-        render 'new'
-    	elsif(@genre.save)
+    	if(@genre.save)
     		redirect_to genre_url(@genre)
   		  #	flash[:success] = "Genre Added"
     	else

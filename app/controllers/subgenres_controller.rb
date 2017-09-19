@@ -9,10 +9,12 @@ class SubgenresController < ApplicationController
 
     def new
     	@subgenre = Subgenre.new
-    	$hello = Genre.find(params[:genre])
-    end 
+    	$hello = params[:genre]
+        end 
   
     def create
+        $hello = Genre.find(params[:genre_id].to_i)
+
     	@subgenre = $hello.subgenres.build(subgenre_parms)
     	if @subgenre.save
   		  	flash[:success] = "Subgenre Added"

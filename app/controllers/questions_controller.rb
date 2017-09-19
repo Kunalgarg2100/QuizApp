@@ -13,10 +13,24 @@ class QuestionsController < ApplicationController
 	$subgenre_id=0
 	def new
 		@question = Question.new
-		$hello = Subgenre.find(params[:subgenre])
+		$hello = params[:subgenre]
+		print($hello)
+		print($hello)
+		print($hello)
+		print($hello)
+		print($hello)
+
 	end
 
 	def create
+		print(params[:subgenre_id])
+		print(params[:subgenre_id])
+		print(params[:subgenre_id])
+		print(params[:subgenre_id])
+		print(params[:subgenre_id])
+		
+		print(params[:subgenre_id])
+		$hello = Subgenre.find(params[:subgenre_id].to_i)
 		@question = $hello.questions.build(question_parms)
 		if @question.save
 			flash[:success] = "Question Added"
@@ -24,7 +38,7 @@ class QuestionsController < ApplicationController
 		else
 			print(@question.errors.full_messages)
 			flash[:danger] = "Question  Not Added"
-			#redirect_to root_url
+			render 'new'
 		end
 	end
 

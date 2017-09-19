@@ -66,11 +66,13 @@
 		</table>
 	<% end %>
 
+	<% if(Leaderboard.find_by(user_id:session[:user_id])) %>
 	<div style="padding-bottom: 25px" > 
 		<%= link_to "Go to Quizes", genres_path, class: "btn btn-default  btn-lg" ,style:"float:left;margin-left:60px"%>
 		<%= link_to "Leaderboard", leaderboard_path, class: "btn btn-default  btn-lg",style:"float:right;margin-right:60px" %>
 		</div>
 		<div class="clearflix"></div>
+	<% end %>
 
 
 <% else %> 
