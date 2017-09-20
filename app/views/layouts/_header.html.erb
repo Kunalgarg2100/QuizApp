@@ -10,6 +10,7 @@
           <li><%= link_to "Users", users_path %></li>
           <li><%= link_to "Play Quiz", genres_path %></li>
           <% else %>
+          <li><%= link_to "Users", users_path %></li>
           <li><%= link_to "Play Quiz", genres_path %></li>
           <% end %>
           <% str = User.find(session[:user_id]).name %>
@@ -18,8 +19,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%="Hi! " + str%><b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Change password", current_user %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+              <li><%= link_to "Profile", current_user %></li>
+              <li><%= link_to "Change password", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li>
                 <%= link_to "Log out", logout_path, method: :delete %>

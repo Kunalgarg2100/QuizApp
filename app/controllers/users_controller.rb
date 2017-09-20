@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if current_user.admin? && !current_user?(@user)     
       @users = User.paginate(page: params[:page])
     else
-      redirect_to root_url
+      @users = User.paginate(page: params[:page])
     end
   end
 

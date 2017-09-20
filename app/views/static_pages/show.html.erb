@@ -15,9 +15,11 @@
   <tr>
   <% temp+=1 %>
   <td><%= temp %> </td>
-  <td><%= User.find(t.user_id).name %> </td>
+  <td><%= link_to User.find(t.user_id).name, User.find(t.user_id) %> </td>
   <td> <%= t.score %></td>
   </tr>
 <% end %>
 </tbody>
 </table>
+
+

@@ -19,7 +19,8 @@
 			<% for t in Leaderboard.where(user_id:session[:user_id]) %>
 				<tr><% temp+=1 %>
 				<td><%= temp %> </td>
-				<td><%= Subgenre.find(t.subgenre_id).cont %> </td>
+				<td><%= link_to Subgenre.find(t.subgenre_id).cont, Subgenre.find(t.subgenre_id) %> </td>
+
 				<td> <%= t.score %></td>
 				</tr>
 			<% end %>
@@ -55,10 +56,11 @@
 			<% for t in Leaderboard.where(user_id:session[:user_id]) %>
 				<% x = State.find_by(user_id:session[:user_id],subgenre_id:t.subgenre_id) %>
 				<% if(x) %>
+
 					<% y = Subgenre.find(t.subgenre_id) %>
 					<tr><% temp+=1 %>
 					<td><%= temp %> </td>
-					<td><%= y.cont %> </td>
+					<td><%= link_to Subgenre.find(t.subgenre_id).cont, Subgenre.find(t.subgenre_id) %> </td>
 					<td> <%= x.score %></td>
 					<td><%= link_to "Restore Quiz", quiz_path(:subgenre => t.subgenre.id ,:genre => y.genre_id, :restore => 1), class: "btn btn-default btn-sm" %></td></tr>
 				<% end %>

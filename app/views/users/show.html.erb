@@ -26,7 +26,7 @@
 			<% for t in Leaderboard.where(user_id:@user.id) %>
 				<tr><% temp+=1 %>
 				<td><%= temp %> </td>
-				<td><%= Subgenre.find(t.subgenre_id).cont %> </td>
+				<td><%= link_to Subgenre.find(t.subgenre_id).cont, Subgenre.find(t.subgenre_id) %> </td>
 				<td> <%= t.score %></td>
 				</tr>
 			<% end %>
@@ -64,7 +64,7 @@
 					<% y = Subgenre.find(t.subgenre_id) %>
 					<tr><% temp+=1 %>
 					<td><%= temp %> </td>
-					<td><%= y.cont %> </td>
+					<td><%= link_to Subgenre.find(t.subgenre_id).cont, Subgenre.find(t.subgenre_id) %> </td>
 					<td> <%= x.score %></td>
 				<% end %>
 			<% end %>
