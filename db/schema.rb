@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170916192519) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "genres", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -22,8 +19,8 @@ ActiveRecord::Schema.define(version: 20170916192519) do
   end
 
   create_table "leaderboards", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "subgenre_id"
+    t.integer "user_id"
+    t.integer "subgenre_id"
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,15 +35,15 @@ ActiveRecord::Schema.define(version: 20170916192519) do
     t.string "optC"
     t.string "optD"
     t.string "correctopt"
-    t.bigint "subgenre_id"
+    t.integer "subgenre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subgenre_id"], name: "index_questions_on_subgenre_id"
   end
 
   create_table "states", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "subgenre_id"
+    t.integer "user_id"
+    t.integer "subgenre_id"
     t.integer "qno"
     t.integer "score"
     t.datetime "created_at", null: false
@@ -57,7 +54,7 @@ ActiveRecord::Schema.define(version: 20170916192519) do
 
   create_table "subgenres", force: :cascade do |t|
     t.string "cont"
-    t.bigint "genre_id"
+    t.integer "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["genre_id"], name: "index_subgenres_on_genre_id"
@@ -74,10 +71,4 @@ ActiveRecord::Schema.define(version: 20170916192519) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "leaderboards", "subgenres"
-  add_foreign_key "leaderboards", "users"
-  add_foreign_key "questions", "subgenres"
-  add_foreign_key "states", "subgenres"
-  add_foreign_key "states", "users"
-  add_foreign_key "subgenres", "genres"
 end

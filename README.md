@@ -1,7 +1,7 @@
-# Ruby on Rails Tutorial
 
-## "hello, world!"
+# Ruby on Rails WebApp
+Admin credentails:
+Email : admin@gmail.com
+Password : user123
 
-This is the first application for the
-[*Ruby on Rails Tutorial*](http://www.railstutorial.org/)
-by [Kunal Garg]. Hello, world!
+by [Kunal Garg].
